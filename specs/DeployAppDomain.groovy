@@ -827,7 +827,7 @@ class DeployAppDomain extends PluginTestHelper {
     }
 
     @Unroll
-    def "Negative. DeployApp, 1st time, disabled flag in additional options (C277893)"() {
+    def "DeployApp, 1st time, disabled flag in additional options (C277893)"() {
         String testCaseId = "C277893"
 
         def runParams = [
@@ -849,8 +849,20 @@ class DeployAppDomain extends PluginTestHelper {
         RunProcedureJob runProcedureJob = runProcedureUnderTest(runParams)
 
         then:
-        assert runProcedureJob.getStatus() == "error"
-        assert runProcedureJob.getUpperStepSummary() =~ "When JBoss mode is domain checkbox 'Apply to all servers' should be checked or 'Server groups to apply' should be provided"
+        String expectedAppName = "$testCaseId-app.war"
+        String expectedRuntimeName = "$testCaseId-app.war"
+
+        assert runProcedureJob.getStatus() == "success"
+        assert runProcedureJob.getUpperStepSummary() =~ "Application $expectedAppName ' has been successfully deployed from '${runParams.warphysicalpath}'."
+        assert runProcedureJob.getLogs() =~ "jboss-cli.*--command=.*deploy .*${runParams.warphysicalpath}.*${runParams.additional_options}"
+
+        checkAppUploadedToContentRepo(expectedAppName, expectedRuntimeName)
+
+        String[] expectedServerGroupsWithoutApp = [serverGroup1, serverGroup2]
+        checkAppNotDeployedToServerGroups(expectedAppName, expectedServerGroupsWithoutApp)
+
+        cleanup:
+        undeployFromAllRelevantServerGroups("$testCaseId-app.war")
     }
 
     @Unroll
