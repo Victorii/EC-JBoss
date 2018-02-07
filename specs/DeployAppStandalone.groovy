@@ -705,8 +705,8 @@ class DeployAppStandalone extends PluginTestHelper {
 
         then:
         assert runProcedureJob.getStatus() == "success"
-        assert runProcedureJob.getUpperStepSummary() =~ "Application '${runParams.appname}' has been successfully deployed from '${runParams.warphysicalpath}'"
-        assert runProcedureJob.getLogs() =~ "jboss-cli.*--command=.*deploy .*${runParams.warphysicalpath}.*--name=.*${runParams.appname}.*--runtime-name=.*${runParams.runtimename}.*${runParams.additional_options}.*--force"
+        assert runProcedureJob.getUpperStepSummary() =~ "Application '${runParams.appname}' has been successfully deployed from '$linkToSampleWarFile'"
+        assert runProcedureJob.getLogs() =~ "Source with deployment is URL (such option available for EAP 7 and later versions): '${runParams.warphysicalpath}'.*"
 
         String expectedAppName = "$testCaseId-app.war"
         String expectedRuntimeName = "$testCaseId-app.war"
@@ -744,8 +744,8 @@ class DeployAppStandalone extends PluginTestHelper {
 
         then:
         assert runProcedureJob.getStatus() == "success"
-        assert runProcedureJob.getUpperStepSummary() =~ "Application '${runParams.appname}' has been successfully deployed from '${runParams.warphysicalpath}'"
-        assert runProcedureJob.getLogs() =~ "jboss-cli.*--command=.*deploy .*${runParams.warphysicalpath}.*--name=.*${runParams.appname}.*--runtime-name=.*${runParams.runtimename}.*${runParams.additional_options}.*--force"
+        assert runProcedureJob.getUpperStepSummary() =~ "Application '${runParams.appname}' has been successfully deployed from '$linkToSampleWarFile'"
+        assert runProcedureJob.getLogs() =~ "Source with deployment is URL (such option available for EAP 7 and later versions): '${runParams.warphysicalpath}'"
 
         String expectedAppName = "$testCaseId-app.war"
         String expectedRuntimeName = "$testCaseId-app-new-runtimename.war"
@@ -783,8 +783,8 @@ class DeployAppStandalone extends PluginTestHelper {
 
         then:
         assert runProcedureJob.getStatus() == "success"
-        assert runProcedureJob.getUpperStepSummary() =~ "Application '${runParams.appname}' has been successfully deployed from '${runParams.warphysicalpath}'"
-        assert runProcedureJob.getLogs() =~ "jboss-cli.*--command=.*deploy .*${runParams.warphysicalpath}.*--name=.*${runParams.appname}.*--runtime-name=.*${runParams.runtimename}.*${runParams.additional_options}.*--force"
+        assert runProcedureJob.getUpperStepSummary() =~ "Application '${runParams.appname}' has been successfully deployed from '$linkToSampleWarFile'"
+        assert runProcedureJob.getLogs() =~ "Source with deployment is URL (such option available for EAP 7 and later versions): '${runParams.warphysicalpath}'"
 
         String expectedAppName = "$testCaseId-app.war"
         String expectedRuntimeName = "$testCaseId-app-new-runtimename.war"
@@ -818,7 +818,7 @@ class DeployAppStandalone extends PluginTestHelper {
 
         then:
         assert runProcedureJob.getStatus() == "error"
-        assert runProcedureJob.getUpperStepSummary() =~ "File 'https://github.com/electric-cloud/incorrect-path/hello-world.war' doesn't exists"
+        assert runProcedureJob.getUpperStepSummary() =~ "Cannot create input stream from URL 'https://github.com/electric-cloud/incorrect-path/hello-world.war'"
         assert runProcedureJob.getLogs() =~ "jboss-cli.*--command=.*deploy .*${runParams.warphysicalpath}.*--name=.*${runParams.appname}.*--runtime-name=.*${runParams.runtimename}.*${runParams.additional_options}"
 
     }
