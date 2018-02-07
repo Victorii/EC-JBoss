@@ -706,7 +706,7 @@ class DeployAppStandalone extends PluginTestHelper {
         then:
         assert runProcedureJob.getStatus() == "success"
         assert runProcedureJob.getUpperStepSummary() =~ "Application '${runParams.appname}' has been successfully deployed from '$linkToSampleWarFile'"
-        assert runProcedureJob.getLogs() =~ "Source with deployment is URL (such option available for EAP 7 and later versions): '${runParams.warphysicalpath}'.*"
+        assert runProcedureJob.getLogs() =~ "Source with deployment is URL \\(such option available for EAP 7 and later versions\\): '--url=https://github.com/electric-cloud/hello-world-war/raw/master/dist/hello-world.war'"
 
         String expectedAppName = "$testCaseId-app.war"
         String expectedRuntimeName = "$testCaseId-app.war"
@@ -745,7 +745,7 @@ class DeployAppStandalone extends PluginTestHelper {
         then:
         assert runProcedureJob.getStatus() == "success"
         assert runProcedureJob.getUpperStepSummary() =~ "Application '${runParams.appname}' has been successfully deployed from '$linkToSampleWarFile'"
-        assert runProcedureJob.getLogs() =~ "Source with deployment is URL (such option available for EAP 7 and later versions): '${runParams.warphysicalpath}'"
+        assert runProcedureJob.getLogs() =~ "Source with deployment is URL \\(such option available for EAP 7 and later versions\\): '--url=https://github.com/electric-cloud/hello-world-war/raw/master/dist/hello-world.war'"
 
         String expectedAppName = "$testCaseId-app.war"
         String expectedRuntimeName = "$testCaseId-app-new-runtimename.war"
@@ -784,7 +784,7 @@ class DeployAppStandalone extends PluginTestHelper {
         then:
         assert runProcedureJob.getStatus() == "success"
         assert runProcedureJob.getUpperStepSummary() =~ "Application '${runParams.appname}' has been successfully deployed from '$linkToSampleWarFile'"
-        assert runProcedureJob.getLogs() =~ "Source with deployment is URL (such option available for EAP 7 and later versions): '${runParams.warphysicalpath}'"
+        assert runProcedureJob.getLogs() =~ "Source with deployment is URL \\(such option available for EAP 7 and later versions\\): '--url=https://github.com/electric-cloud/hello-world-war/raw/master/dist/hello-world.war'"
 
         String expectedAppName = "$testCaseId-app.war"
         String expectedRuntimeName = "$testCaseId-app-new-runtimename.war"
